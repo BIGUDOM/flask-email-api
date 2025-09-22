@@ -32,7 +32,7 @@ The API is designed to be hosted on **Render**, while your frontend can be hoste
 ``` bash 
 flask-email-api/
 │── app.py              # Main Flask app
-│── requirements.txt    # Python dependencies
+│── requirement.txt    # Python dependencies
 │── Procfile            # For Render deployment
 │── README.md           # Project docs
 
@@ -48,7 +48,7 @@ cd flask-email-api
 
 2. Install dependecies 
 ``` bash 
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 3. Set environment variable 
