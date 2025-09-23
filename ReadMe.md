@@ -59,6 +59,10 @@ MY_INBOX=your-gmail@gmail.com
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
 ```
+4. Run locally
+```bash 
+python app.py
+```
 ---
 
 
@@ -73,10 +77,7 @@ Adding an example of the bug or the intended feature or fix, is a good way to cr
 
 ## License
 MIT
-4. Run locally
-```bash 
-python app.py
-```
+
 
 
 
