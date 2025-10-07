@@ -19,10 +19,17 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
 MY_INBOX = os.getenv("MY_INBOX", "codis1723@gmail.com")
 
 
+# 🏠 Root route for testing
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "✅ Flask Email API is running"}), 200
+
+
+# 📬 Function to send email
 def send_email(subject, body):
     try:
         if not SENDER_EMAIL or not SENDER_PASSWORD:
-            return {"success": False, "error": "Email not configured"}
+            return {"success": False, "error": "Email credentials not configured."}
 
         msg = MIMEMultipart()
         msg["From"] = SENDER_EMAIL
@@ -35,12 +42,13 @@ def send_email(subject, body):
             server.login(SENDER_EMAIL, SENDER_PASSWORD)
             server.send_message(msg)
 
-        return {"success": True, "message": f"Email sent to {MY_INBOX}"}
+        return {"success": True, "message": f"✅ Email sent successfully to {MY_INBOX}"}
     except Exception as e:
         traceback.print_exc()
         return {"success": False, "error": str(e)}
 
 
+# 📩 API endpoint for frontend contact form
 @app.route("/sendemail", methods=["POST"])
 def api_send_email():
     try:
@@ -52,18 +60,19 @@ def api_send_email():
         if not user_email:
             return jsonify({"success": False, "error": "User email is required"}), 400
 
-        # Format email body nicely
+        # Nicely formatted email body
         body = f"""
-        You received a new message from your website form:
+You received a new message from your website contact form:
 
-        From: {user_email}
-        Subject: {subject}
-        Message:
-        {message}
-        """
+From: {user_email}
+Subject: {subject}
+
+Message:
+{message}
+"""
 
         result = send_email(subject, body)
-        return jsonify(result)
+        return jsonify(result), (200 if result["success"] else 500)
 
     except Exception as e:
         traceback.print_exc()
