@@ -6,8 +6,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import traceback
 
+from flask_cors import CORS
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 # 🔑 Get credentials from environment variables (set these in Render dashboard)
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
